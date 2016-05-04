@@ -1,0 +1,8 @@
+420 jorge
+120 lina
+100 martha
+300 pedro
+200 julieta
+235 jimena
+652 agustin
+369 felipe

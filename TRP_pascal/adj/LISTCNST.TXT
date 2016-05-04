@@ -1,0 +1,140 @@
+Constelacion:                  Cruz del Sur
+Nro.Orden      Nombre de la Estrella     Coord X   Coord Y
+    1                        Becrux       250         180
+    2                        Gacrux       400         120
+    3                        Decrux       450         250
+    4                         Acrux       300         390
+Pto.Origen    Pto.Destino
+    2         4
+    1         3
+           
+Constelacion:             Orion, el cazador
+Nro.Orden      Nombre de la Estrella     Coord X   Coord Y
+    4                         x2Ori       300          20
+   16                          vOri       270          80
+    9                          uOri       270         140
+   14                  Se desconoce       250          90
+    3                  Se desconoce       265          30
+    7                    Betelgeuse       300         190
+    2                        Meissa       360         140
+   19                     Bellatrix       430         200
+    8                       Mintaka       410         310
+    6                       Alnilam       380         330
+    1                      Alniltak       350         345
+    5                         Saiph       345         440
+   10                         Rigel       460         430
+   21                          tOri       450         390
+   12                          nOri       440         345
+   15                        pi6Ori       520         270
+   18                        pi5Ori       550         260
+   11                        pi4Ori       570         210
+   17                         Tabit       570         180
+   20                        pi2Ori       560         140
+   13                        pi1Ori       540         120
+Pto.Origen    Pto.Destino
+    4        16
+   16        14
+    9        14
+   14         3
+    9         7
+    7         2
+    2        19
+   19         8
+    8         6
+    6         1
+    1         7
+    1         5
+    5        10
+   10        21
+   21        12
+   12         8
+   19        17
+   15        18
+   18        11
+   11        17
+   17        20
+   20        13
+           
+Constelacion:                           Leo
+Nro.Orden      Nombre de la Estrella     Coord X   Coord Y
+    2                       Rasalas       400         100
+    1          Ras Elased Austrails       450         130
+    3                     Aldhafera       320         120
+    5                         Zosma       170         190
+    6                       Deneboa       100         250
+    4                       Algieba       310         190
+    9                       Regulus       370         270
+    8                         Subra       450         280
+   10                    Eta de Leo       370         220
+    7                         Chort       170         240
+Pto.Origen    Pto.Destino
+    2         1
+    2         3
+    5         6
+    3         4
+    9         8
+    4        10
+    9        10
+    6         7
+    7         5
+    7         9
+           
+Constelacion:                         Aries
+Nro.Orden      Nombre de la Estrella     Coord X   Coord Y
+    1                         41Ari       100         100
+    4                     Mesarthim       575         375
+    2                         Hamal       425         225
+    3                      Sheratan       550         325
+Pto.Origen    Pto.Destino
+    1         2
+    2         3
+    3         4
+           
+Constelacion:                         Tauro
+Nro.Orden      Nombre de la Estrella     Coord X   Coord Y
+    1                        Alnath       175          75
+    5                           Ain       320         200
+    9                 Primus Hyadum       330         270
+   11                     Aldebaran       265         265
+    3                         1 Tau       250         150
+    7                         2 Tau       100         200
+   12                         3 Tau       390         310
+    2                         4 Tau       320         360
+    6                         5 Tau       360         420
+   10                         6 Tau       470         330
+    4                         7 Tau       480         360
+    8                         9 Tau       520         390
+Pto.Origen    Pto.Destino
+    1         3
+    3         5
+    5        11
+    9        11
+   11         7
+    9        12
+   12         2
+    2         6
+   12        10
+   10         4
+    4         8
+           
+Constelacion:                        Pegaso
+Nro.Orden      Nombre de la Estrella     Coord X   Coord Y
+    1                          Kerb       100          50
+    2                       Algenib        50         200
+    3                        Scheat       250         100
+    4                         Matar       300          75
+    5                     Sadalbari       275         150
+    6                        Markab       250         250
+    7                         Homam       300         300
+    8                         Baham       400         350
+    9                          Enif       450         300
+Pto.Origen    Pto.Destino
+    1         3
+    3         4
+    3         6
+    1         2
+    2         6
+    6         7
+    7         8
+    8         9
+           

@@ -1,0 +1,19 @@
+Pleyades
+100 400 1 Atlas
+100 300 2 Pleione
+200 400 3 Alcione
+250 450 4 Merope
+500 400 5 Electra
+500 300 6 Celaeno
+300 250 7 Maia
+450 200 8 Taygeta
+400 150 9 Asterope
+0 0 0 *
+2 1
+1 3
+3 4
+4 5
+5 6
+6 7
+6 8
+6 9

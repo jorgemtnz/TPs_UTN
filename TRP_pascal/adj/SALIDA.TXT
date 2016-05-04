@@ -1,0 +1,741 @@
+**************************************************************************
+* Compilador Turbo Pascal Version 7.0   Borland *           Pagina #   1 *
+* Listado fuente (Lst)                                 Fecha: 30/10/10   *
+*                                                      Hora.: 07/17/16   *
+**************************************************************************
+
+    1 Program Constelaciones;
+    2 
+    3 Uses
+    4       Crt, Dos;
+    5 
+    6 
+    7 Const
+    8 CANT_STAR = 25;                 {declaracion de constante Cant_Star}
+    9 
+   10 Type                            {tipo de datos para la constalaciones y estrellas}
+   11 STR20= string[20];
+   12 STR30= string[30];
+   13 
+   14 {Define los Vecores}
+   15 tregStar= record                {registro vector de estrella}
+   16           nomStar: str20;
+   17           coordX,
+   18           coordY: word;
+   19           nroOrden: byte;
+   20           end;
+   21 
+   22 tregSeg=  record                {registro vector de segmentos}
+   23           ptoOrigen,
+   24           ptoDestino: Byte;
+   25           end;
+   26 
+   27 
+   28 {Define la longitud de los Vecores}
+   29 tvStar = array [1..cant_star]  of tregStar;   {arreglo de estrellas max 25}
+   30 tvSeg  = array [1..cant_star]  of tregSeg;    {arreglo de segmentos max 25}
+   31 
+   32 {Define los Tipos de registros de los Binarios}
+   33 tregCnstStar= record                            {Registro const Estrella/ Reg Bin}
+   34                nomCnstlcn: str30;
+   35                cjtoStar  : tvStar;
+   36               end;
+   37 
+   38 tregCnstSeg = record                            {Registro const Estrella/ Reg Bin}
+   39                nomCnsSeg: str30;
+   40                cjtoSeg  : tvSeg;
+   41               end;
+   42 
+   43 
+   44 {Define los tipos de registros de los Binarios}
+   45 tarcCnstStar = file of tregCnstStar;
+   46 tarcCnstSeg  = file of tregCnstSeg;
+   47 {Define el tipo de registros de los Binarios}
+   48 ArchText= Text;
+   49 procedure inicializar(var tCnstStar:tarcCnstStar;var tCnsSeg:tarcCnstSeg);
+   50  var
+   51   rtCnStar:tregCnstStar;
+**************************************************************************
+* Compilador Turbo Pascal Version 7.0   Borland *           Pagina #   2 *
+* Listado fuente (Lst)                                 Fecha: 30/10/10   *
+*                                                      Hora.: 07/17/16   *
+**************************************************************************
+
+   52   rtCnSeg:tregCnstSeg;
+   53   nombinC,nombinS,nomtxt: str30;
+   54   c:byte; archivotxt:text;
+   55   begin
+   56   for c:= 1 to 25 do
+   57    begin
+   58    c:=c+1;
+   59     rtCnStar.cjtoStar[c].coordX:=0;
+   60     rtCnStar.cjtoStar[c].coordY:=0;
+   61     rtCnStar.cjtoStar[c].nroOrden:=0;
+   62     rtCnStar.cjtoStar[c].nomStar:=' ';
+   63     rtCnSeg.cjtoSeg[c].ptoOrigen:=0;
+   64     rtCnSeg.cjtoSeg[c].ptoDestino:=0;
+   65     end;
+   66     rtCnStar.nomCnstlcn:=' ';
+   67     rtCnSeg.nomCnsSeg:=' ';
+   68 
+   69  end;
+   70 
+   71 Function FileExistBin(var nomLog:tarcCnstStar): Boolean;
+   72      begin
+   73          {$I-}
+   74          reset(nomLog);
+   75          {$I+}
+   76          fileExistBin:= ioresult=0;
+   77      end;{FileExistBin}
+   78 
+   79 Function FileExistBinS(var nomLog:tarcCnstSeg): Boolean;
+   80      begin
+   81          {$I-}
+   82          reset(nomLog);
+   83          {$I+}
+   84          fileExistBins:= ioresult=0;
+   85      end;{FileExistBinS}
+   86 
+   87 
+   88 Function FileExistText(var nomLog: text): Boolean;
+   89      begin
+   90          {$I-}
+   91          reset(nomLog);
+   92          {$I+}
+   93          fileExistText:= ioresult=0;
+   94      end;{FileExiystText}
+   95 
+   96 
+   97 
+   98 {Consistencia Binarios 1 }  
+   99 procedure ConsArch (var Archivo:tarcCnstSeg);
+  100  var
+  101  Confirmacion: Char;
+  102  sl: boolean;
+**************************************************************************
+* Compilador Turbo Pascal Version 7.0   Borland *           Pagina #   3 *
+* Listado fuente (Lst)                                 Fecha: 30/10/10   *
+*                                                      Hora.: 07/17/16   *
+**************************************************************************
+
+  103  NombArch: STR30;
+  104  ArchTxt :text;
+  105 
+  106  Begin
+  107     sl:=false;
+  108     If FileExistBinS(Archivo)  then
+  109         Begin
+  110               writeln (#10,'>>> El archivo existe <<<',#10);
+  111               repeat
+  112                   write ('¨Desea reemplazarlo? s=> si || n=> no : ');
+  113                   readln(Confirmacion);
+  114                   Confirmacion:= upcase(Confirmacion);
+  115               Until (Confirmacion='S') or (Confirmacion='N');
+  116 
+  117               if Confirmacion ='S' then
+  118                  begin
+  119                    repeat
+  120                     writeln;
+  121                     writeln ('Ingrese nombre del archivo de texto que ');
+  122                     write   ('contiene el Conjunto de Constelaciones: ');
+  123                     readln(NombArch);
+  124                     Assign(ArchTxt,NombArch+'.txt');
+  125 
+  126 
+  127                     if FileExistText(ArchTxt) then
+  128                       Begin
+  129                        rewrite(Archivo);
+  130                        writeln;
+  131                        writeln('>>> El archivo se ha modificado correctamente <<<');
+  132                        sl:=true;
+  133                       end
+  134                     else
+  135                       Begin
+  136                        writeln;
+  137                        writeln('>>> El nombre del archivo de texto no existe <<<');
+  138                        writeln('>>>            Ingreselo nuevamente          <<<');
+  139                       end
+  140                    until sl=true;
+  141                  end
+  142               else
+  143                  writeln(#10,'>>> El archivo no se ha reemplazado <<<')
+  144                {volver al menu?}
+  145         end
+  146     else
+  147         begin
+  148          writeln(#10);
+  149          writeln ('>>> ­ATENCION!: El nombre del Archivo ingresado no existe <<<');
+  150          repeat
+  151                   writeln;
+  152                   write ('¨Desea crearlo? s=> si || n=> no : ');
+  153                   readln (Confirmacion);
+**************************************************************************
+* Compilador Turbo Pascal Version 7.0   Borland *           Pagina #   4 *
+* Listado fuente (Lst)                                 Fecha: 30/10/10   *
+*                                                      Hora.: 07/17/16   *
+**************************************************************************
+
+  154                   Confirmacion:= upcase(Confirmacion);
+  155 
+  156          Until (Confirmacion='S') or (Confirmacion='N');
+  157 
+  158          if Confirmacion ='S' then
+  159             begin
+  160               rewrite(Archivo);
+  161               writeln(#10,'>>> El archivo se ha creado correctamente <<<');
+  162             end
+  163          else
+  164             begin
+  165               writeln;
+  166               writeln('>>> El archivo no se ha creado <<<');
+  167               {volver al menu?}
+  168             end
+  169         end;
+  170 
+  171 End;{ConsArch}
+  172 
+  173 {Consistencia Binarios 2 }
+  174 procedure ConsArchS (var Archivo:tarcCnstStar);
+  175  var
+  176  Confirmacion: Char;
+  177  sl: boolean;
+  178  NombArch: STR30;
+  179  ArchTxt :text;
+  180 
+  181  Begin
+  182     sl:=false;
+  183     If FileExistBin(Archivo)  then
+  184         Begin
+  185               writeln (#10,'>>> El archivo existe <<<',#10);
+  186               repeat
+  187                   write ('¨Desea reemplazarlo? s=> si || n=> no : ');
+  188                   readln(Confirmacion);
+  189                   Confirmacion:= upcase(Confirmacion);
+  190               Until (Confirmacion='S') or (Confirmacion='N');
+  191 
+  192               if Confirmacion ='S' then
+  193                  begin
+  194                    repeat
+  195                     writeln;
+  196                     writeln ('Ingrese nombre del archivo de texto que ');
+  197                     write   ('contiene el Conjunto de Constelaciones: ');
+  198                     readln(NombArch);
+  199                     Assign(ArchTxt,NombArch+'.txt');
+  200 
+  201 
+  202                     if FileExistText(ArchTxt) then
+  203                       Begin
+  204                        rewrite(Archivo);
+**************************************************************************
+* Compilador Turbo Pascal Version 7.0   Borland *           Pagina #   5 *
+* Listado fuente (Lst)                                 Fecha: 30/10/10   *
+*                                                      Hora.: 07/17/16   *
+**************************************************************************
+
+  205                        writeln;
+  206                        writeln('>>> El archivo se ha modificado correctamente <<<');
+  207                        sl:=true;
+  208                       end
+  209                     else
+  210                       Begin
+  211                        writeln;
+  212                        writeln('>>> El nombre del archivo de texto no existe <<<');
+  213                        writeln('>>>            Ingreselo nuevamente          <<<');
+  214                       end
+  215                    until sl=true;
+  216                  end
+  217               else
+  218                  writeln(#10,'>>> El archivo no se ha reemplazado <<<')
+  219                {volver al menu?}
+  220         end
+  221     else
+  222         begin
+  223          writeln(#10);
+  224          writeln ('>>> ­ATENCION!: El nombre del Archivo ingresado no existe <<<');
+  225          repeat
+  226                   writeln;
+  227                   write ('¨Desea crearlo? s=> si || n=> no : ');
+  228                   readln (Confirmacion);
+  229                   Confirmacion:= upcase(Confirmacion);
+  230 
+  231          Until (Confirmacion='S') or (Confirmacion='N');
+  232 
+  233          if Confirmacion ='S' then
+  234             begin
+  235               rewrite(Archivo);
+  236               writeln(#10,'>>> El archivo se ha creado correctamente <<<');
+  237             end
+  238          else
+  239             begin
+  240               writeln;
+  241               writeln('>>> El archivo no se ha creado <<<');
+  242               {volver al menu?}
+  243             end
+  244         end;
+  245 
+  246 End;{ConsArchS}
+  247 
+  248 
+  249  function menuprin:byte;
+  250   var
+  251   op : byte;
+  252   begin
+  253    repeat
+  254     gotoxy(21,20); writeln('Elija una opcion');
+  255     gotoxy(21,11); writeln('1. Crear archivos Binarios de Constelaciones');
+**************************************************************************
+* Compilador Turbo Pascal Version 7.0   Borland *           Pagina #   6 *
+* Listado fuente (Lst)                                 Fecha: 30/10/10   *
+*                                                      Hora.: 07/17/16   *
+**************************************************************************
+
+  256     gotoxy(21,13); writeln('2. Agregar Nueva Constelacion');
+  257     gotoxy(21,15); writeln('3. Consultar Archivo de Constelaciones');
+  258     gotoxy(21,17); writeln('4. Salir de la Aplicacion');
+  259     gotoxy(21,21); readln(op)
+  260    until (op<5)and(op>0);
+  261    menuprin := op;
+  262    ClrScr;
+  263   end;
+  264 
+  265   Procedure ventana;
+  266    var
+  267     i,j,k,l,x1,y1,x2,y2:byte;
+  268    begin
+  269     x1:=20;
+  270     y1:=10;
+  271     x2:=65;
+  272     y2:=25;
+  273     gotoXY (x1,y1);
+  274     write ('É');
+  275     for i:=(x1+1) to (x2-1) do
+  276      write ('Í');
+  277      writeln ('»');
+  278     for j:=(y1+1) to y2 do
+  279      begin
+  280       gotoXY (x2,j);
+  281       writeln ('º');
+  282      end;
+  283     for k:=(y1+1) to y2 do
+  284      begin
+  285       gotoXY (x1,k);
+  286       writeln ('º');
+  287      end;
+  288 
+  289     gotoxy(20,25);
+  290     write ('È');
+  291 
+  292     for l:=(x1+1) to (x2-1) do
+  293     begin
+  294      write ('Í');
+  295      end;
+  296      write ('¼');
+  297      gotoXY (x1+1,y1+1);
+  298    end;
+  299  {PROCEDIMIENTO ACTUALIZA ARCHIVOS BINARIOS}
+  300 procedure act(var tarcCnstStar1:tarcCnstStar;var tarcCnstSeg1:tarcCnstSeg);
+  301  var
+  302  archivotxt :text;                {DECLARACION DE VARIABLES}
+  303  nomtxt,nombinC,nombinS: string;
+  304  nocons, nest:str30;
+  305  d,r,c,z,nor,ptoor,ptodes: byte;
+  306  cox,coy: word;
+**************************************************************************
+* Compilador Turbo Pascal Version 7.0   Borland *           Pagina #   7 *
+* Listado fuente (Lst)                                 Fecha: 30/10/10   *
+*                                                      Hora.: 07/17/16   *
+**************************************************************************
+
+  307  tregCnstStar1:tregCnstStar;
+  308  tregCnstSeg1:tregCnstSeg;
+  309  begin                           {INICIO DEL PROCEDIMIENTO}
+  310    writeln('Archivos a actualizar a partir de un archivo.txt'); {LECTURA DE NOMBRES DE ARCHIVOS}
+  311    writeln('Ingrese nombre(Cnstlact) del archivo de texto: ');
+  312    readln(nomtxt);
+  313    assign(archivotxt,nomtxt+'.txt');      {ASIGNA EL ARCHIVO FISICO A UNA VARIABLE }
+  314 
+  315    if( FileExistText(archivotxt) = true) then    {CONSISTENCIA DE ARCHIVO TXT}
+  316    begin
+  317     reset(archivotxt);        {ABRE EL ARCHIVO}
+  318     write ('Ingrese nombre del archivo binario Constelacion :');
+  319    readln(nombinC);
+  320     assign(tarcCnstStar1,nombinC+'.dat');
+  321     If (FileExistBin(tarcCnstStar1)= true)   then   {CONSISTENCIA DE ARCHIVO BINARIO CONSTELACION}
+  322     begin
+  323      reset(tarcCnstStar1);
+  324      write ('Ingrese nombre del archivo binario Segmentos :');
+  325      readln(nombinS);
+  326      assign(tarcCnstSeg1,nombinS+'.dat');
+  327      If (FileExistBinS(tarcCnstSeg1)= true)  then  {CONSISTENCIA DE ARCHIVO BINARIO SEGMENTOS}
+  328      begin
+  329       reset(tarcCnstSeg1);
+  330       seek(tarcCnstStar1,filesize(tarcCnstStar1)); {POSICIONAMIENTO DE PUNTERO}
+  331       seek(tarcCnstSeg1,filesize(tarcCnstSeg1));   {EN FIN DE ARCHIVO}
+  332       while not eoln(archivotxt) do         {CICLO CONDICIONAL 0 - X}
+  333        begin
+  334         c:=0;
+  335         z:=0;
+  336         readln(archivotxt,nocons);       {LECTURA DE ARCHIVO Y PASE A VARIABLE}
+  337         tregCnstStar1.nomCnstlcn:=nocons;
+  338         write(tarcCnstStar1,tregCnstStar1); {ESCRITURA DE ARCHIVO}
+  339         repeat
+  340           c:=c+1;
+  341            readln(archivotxt,cox,coy,nor,nest);  {LECTURA DE ARCHIVO Y PASE A VARIABLE}
+  342            tregCnstStar1.cjtoStar[c].coordX:=cox;
+  343            tregCnstStar1.cjtoStar[c].coordY:=coy;
+  344            tregCnstStar1.cjtoStar[c].nroOrden:=nor;
+  345            tregCnstStar1.cjtoStar[c].nomStar:=nest;
+  346            write(tarcCnstStar1,tregCnstStar1);     {ESCRITURA DE ARCHIVO}
+  347         until nest=' *';
+  348           repeat
+  349            begin
+  350             z:=z+1;
+  351             readln(archivotxt,ptoor,ptodes);      {LECTURA DE ARCHIVO Y PASE A VARIABLE}
+  352             tregCnstSeg1.cjtoSeg[z].ptoOrigen:=ptoor;
+  353             tregCnstSeg1.cjtoSeg[z].ptoDestino:=ptodes;
+  354             write(tarcCnstSeg1,tregCnstSeg1);        {ESCRITURA DE ARCHIVO}
+  355            end
+  356           until ((ptoor=0) and (ptodes=0))
+  357         end;
+**************************************************************************
+* Compilador Turbo Pascal Version 7.0   Borland *           Pagina #   8 *
+* Listado fuente (Lst)                                 Fecha: 30/10/10   *
+*                                                      Hora.: 07/17/16   *
+**************************************************************************
+
+  358       close(tarcCnstSeg1);      {CIERRE DE ARCHIVOS }
+  359       close(tarcCnstStar1);
+  360       close(archivotxt);
+  361       writeln('Archivos actualizados');
+  362       end
+  363      else
+  364       begin
+  365       writeln('no existe el archivo segmentos'); {NO EXISTE ARCHIVO}
+  366       delay(1000);
+  367       exit;                                      {SALIDA}
+  368       end;
+  369      end
+  370     else
+  371      begin
+  372       writeln('no existe el archivo constelacion');
+  373       delay(1000);
+  374       exit;
+  375      end;
+  376     end
+  377    else
+  378     begin
+  379      writeln('El archivo no existe');
+  380      delay(1000);
+  381      exit;
+  382     end;
+  383   end;
+  384 
+  385  procedure cop(var tarcCnstStar1:tarcCnstStar;var tarcCnstSeg1:tarcCnstSeg);
+  386   var
+  387   archivotxt :text;
+  388   nomtxt,nombinC,nombinS: string;
+  389   nocons, nest:str30;
+  390   nor,d,r,c,z,ptoor,ptodes: byte;
+  391   cox,coy: word;
+  392   tregCnstStar1:tregCnstStar;
+  393   tregCnstSeg1:tregCnstSeg;
+  394   begin
+  395    nomtxt:=' ';nombinC:=' ';nombinS:=' ';nocons:= ' ';nest:= ' ';
+  396    cox:=0; coy:=0; d:=0;r:=0;c:=0;z:=0;nor:=0;ptoor:=0;ptodes:=0;
+  397 
+  398    writeln('Archivos a Crear a partir de un archivo.txt');
+  399    writeln('Ingrese nombre(Cnstlcns)del archivo de texto nombre.txt: ');
+  400    readln(nomtxt);
+  401    assign(archivotxt,nomtxt+'.txt');
+  402    reset(archivotxt);
+  403    write ('Ingrese nombre del archivo binario Constelacion :');
+  404    readln(nombinC);
+  405    write ('Ingrese nombre del archivo binario Segmentos :');
+  406    readln(nombinS);
+  407    assign(archivotxt,nomtxt+'.txt');
+  408    reset(archivotxt);
+**************************************************************************
+* Compilador Turbo Pascal Version 7.0   Borland *           Pagina #   9 *
+* Listado fuente (Lst)                                 Fecha: 30/10/10   *
+*                                                      Hora.: 07/17/16   *
+**************************************************************************
+
+  409    assign(tarcCnstStar1,nombinC+'.dat');
+  410    rewrite(tarcCnstStar1);
+  411    reset(tarcCnstStar1);
+  412    assign(tarcCnstSeg1,nombinS+'.dat');
+  413    rewrite(tarcCnstSeg1);
+  414    reset(tarcCnstSeg1);
+  415 
+  416    inicializar(tarcCnstStar1,tarcCnstSeg1 );
+  417       while not eoln(archivotxt) do
+  418        begin
+  419         c:=0;
+  420         z:=0;
+  421         readln(archivotxt,nocons);
+  422         tregCnstStar1.nomCnstlcn:=nocons;
+  423         write(tarcCnstStar1,tregCnstStar1);
+  424 
+  425         repeat
+  426            readln(archivotxt,cox,coy,nor,nest);
+  427            tregCnstStar1.cjtoStar[c].coordX:=cox;
+  428            tregCnstStar1.cjtoStar[c].coordY:=coy;
+  429            tregCnstStar1.cjtoStar[c].nroOrden:=nor;
+  430            tregCnstStar1.cjtoStar[c].nomStar:=nest;
+  431            write(tarcCnstStar1,tregCnstStar1);
+  432 
+  433            until nest=' *';
+  434 
+  435           repeat
+  436            begin
+  437             z:=z+1;
+  438             readln(archivotxt,ptoor,ptodes);
+  439             tregCnstSeg1.cjtoSeg[z].ptoOrigen:=ptoor;
+  440             tregCnstSeg1.cjtoSeg[z].ptoDestino:=ptodes;
+  441 
+  442             write(tarcCnstSeg1,tregCnstSeg1);
+  443            end
+  444           until ((ptoor=0) and (ptodes=0))
+  445         end;
+  446       close(tarcCnstSeg1);
+  447       close(tarcCnstStar1);
+  448       close(archivotxt);
+  449    end;
+  450 
+  451  procedure crea(var tarcCnstStar1:tarcCnstStar;var tarcCnstSeg1:tarcCnstSeg);
+  452  var
+  453   CnstStar : tarcCnstStar;
+  454   rCnstStar: tregCnstStar;
+  455   CnstSeg  : tarcCnstSeg;
+  456   rCnstSeg : tregCnstSeg;
+  457   NomStar: string;
+  458   NomSeg: string;
+  459   
+**************************************************************************
+* Compilador Turbo Pascal Version 7.0   Borland *           Pagina #  10 *
+* Listado fuente (Lst)                                 Fecha: 30/10/10   *
+*                                                      Hora.: 07/17/16   *
+**************************************************************************
+
+  460   archivo1,archivotxt :text;
+  461   nomtxt,nombinC,nombinS: string;
+  462   nocons, nest:str30;
+  463   i,j,opc,d,r,c,z,nor,ptoor,ptodes: byte;
+  464   cox,coy: word;
+  465   tregCnstStar1:tregCnstStar;
+  466   tregCnstSeg1:tregCnstSeg;
+  467   begin
+  468    writeln('Archivo.txt a Crear a partir de archivos');
+  469    writeln('selecione una opcion valida');
+  470    writeln('1. Archivos binarios Constelacion y Estrella ');
+  471    writeln('2. Archivo de texto  Cnstlcns.txt');
+  472    readln(opc);
+  473    if opc = 1 then
+  474          begin
+  475      writeln('Ingrese nombre del archivo de texto a crear: ');
+  476      readln(nomtxt);
+  477      write ('Ingrese nombre del archivo binario Constelacion :');
+  478      readln(nombinC);
+  479      write ('Ingrese nombre del archivo binario Segmentos :');
+  480      readln(nombinS);
+  481           {El Nuevo Txt a creado a traves de los dos binarios}
+  482      assign(archivotxt,nomtxt+'.txt');
+  483      rewrite(archivotxt);
+  484      {El Archivo Binarios Constelaciones/Estrellas a leer}
+  485      assign(tarcCnstStar1,nombinC+'.dat');
+  486      reset(tarcCnstStar1);
+  487      {El Archivo Binarios Segmento a leer}
+  488      assign(tarcCnstSeg1,nombinS+'.dat');
+  489      reset(tarcCnstSeg1);
+  490      {Carga el Nuevo Txt con el contenido de los Binarios}
+  491      while not eof(tarcCnstSeg1) do
+  492       begin
+  493        i:=0;
+  494        j:=0;
+  495        c:=0;
+  496        z:=0;
+  497        {Carga en el Nuevo Txt con el 1º Binario la Constelacion}
+  498        write (archivotxt,'Constelaciòn: ');
+  499        nocons:= tregCnstStar1.nomCnstlcn;
+  500        writeln(archivotxt,nocons);
+  501            {Carga en el Nuevo Txt con el 1º Binario las Estrellas}
+  502         repeat
+  503           if i = 0 then
+  504            begin
+  505       c:=c+1;
+  506       i:=1;
+  507       writeln(archivotxt,'Nro.Orden   Nombre de la Estrella   Coord X   Coord Y');
+  508       cox:=tregCnstStar1.cjtoStar[c].coordX;
+  509       coy:=tregCnstStar1.cjtoStar[c].coordY;
+  510       nor:=tregCnstStar1.cjtoStar[c].nroOrden;
+**************************************************************************
+* Compilador Turbo Pascal Version 7.0   Borland *           Pagina #  11 *
+* Listado fuente (Lst)                                 Fecha: 30/10/10   *
+*                                                      Hora.: 07/17/16   *
+**************************************************************************
+
+  511       nest:=tregCnstStar1.cjtoStar[c].nomStar;
+  512       writeln(archivotxt,cox,coy:17,nor:26,nest:10);
+  513       end
+  514           else
+  515            begin
+  516       c:=c+1;
+  517       cox:=tregCnstStar1.cjtoStar[c].coordX;
+  518       coy:=tregCnstStar1.cjtoStar[c].coordY;
+  519       nor:=tregCnstStar1.cjtoStar[c].nroOrden;
+  520       nest:=tregCnstStar1.cjtoStar[c].nomStar;
+  521       writeln(archivotxt,cox,coy:17,nor:26,nest:10);
+  522           end;
+  523            until (nest=' *');
+  524 
+  525          {Carga en el Nuevo Txt con el 2º Binario los Segmento}
+  526       repeat
+  527         if j = 0 then
+  528          begin
+  529           j:=1;
+  530           z:=z+1;
+  531           writeln(archivotxt,'Pto.Origen    Pto. Destino');
+  532           ptoor:=tregCnstSeg1.cjtoSeg[z].ptoOrigen;
+  533           ptodes:=tregCnstSeg1.cjtoSeg[z].ptoDestino;
+  534           writeln(archivotxt,ptoor,ptodes:14);
+  535          end
+  536         else
+  537          begin
+  538          z:=z+1;
+  539          ptoor:=tregCnstSeg1.cjtoSeg[z].ptoOrigen;
+  540          ptodes:=tregCnstSeg1.cjtoSeg[z].ptoDestino;
+  541          writeln(archivotxt,ptoor,ptodes:14);
+  542          end;
+  543       until ((ptoor=0) and (ptodes=0));
+  544          
+  545          end;
+  546          close(tarcCnstSeg1);
+  547          close(tarcCnstStar1);
+  548          close(archivotxt);
+  549         end
+  550       else
+  551        begin
+  552        write('ingrese el nombre del archivo de texto a crear:');
+  553        readln(nomtxt);
+  554 
+  555        {El Antiguo Txt a leer}
+  556        assign(archivotxt,'Cnstlcns.txt');
+  557        reset(archivotxt);
+  558        {El Nuevo Txt a creado a traves del Antiguo Txt}
+  559        assign(archivo1,nomtxt+'.txt');
+  560        rewrite(archivo1);
+  561        {Carga el Nuevo Txt con el contenido del Antiguo Txt}
+**************************************************************************
+* Compilador Turbo Pascal Version 7.0   Borland *           Pagina #  12 *
+* Listado fuente (Lst)                                 Fecha: 30/10/10   *
+*                                                      Hora.: 07/17/16   *
+**************************************************************************
+
+  562        while not eoln(archivotxt) do
+  563         begin
+  564          i:=0;
+  565          j:=0;
+  566          {Carga el Nuevo Txt con la Constelacion del Antiguo Txt}
+  567          readln(archivotxt,nocons);
+  568          write (archivo1,'Constelaciòn: ');
+  569          writeln(archivo1,nocons);
+  570          {Carga en el Nuevo Txt con las Estrellas del Antiguo Txt}
+  571          repeat
+  572            if i = 0 then
+  573        begin
+  574         i:=1;
+  575         writeln(archivo1,'Nro.Orden   Nombre de la Estrella        Coord X   Coord Y');
+  576         readln(archivotxt,cox,coy,nor,nest);
+  577         writeln(archivo1,nor,nest:17,cox:26,coy:10);
+  578        end
+  579       else
+  580        begin
+  581         readln(archivotxt,cox,coy,nor,nest);
+  582         writeln(archivo1,nor,nest:17,cox:26,coy:10);
+  583        end;
+  584          until (nest=' *');
+  585          {Carga en el Nuevo Txt con los Segmento del Antiguo Txt}
+  586          repeat
+  587                 if j = 0 then
+  588        begin
+  589         j:=1;
+  590         writeln(archivo1,'Pto.Origen    Pto.Destino');
+  591         readln(archivotxt,ptoor,ptodes);
+  592         writeln(archivo1,ptoor,ptodes:14);
+  593        end
+  594       else
+  595        begin
+  596         readln(archivotxt,ptoor,ptodes);
+  597         writeln(archivo1,ptoor,ptodes:14);
+  598        end;
+  599          until ((ptoor=0) and (ptodes=0));
+  600        end;
+  601        close(archivo1);
+  602        close(archivotxt);
+  603     end;
+  604 end;
+  605  procedure AbrirBinStar(var Archivo:tarcCnstStar; modoApertura:char);
+  606  begin
+  607   modoApertura:=' ';
+  608   if (modoApertura = 'w') then {POR FALTA DE TIEMPO NO SE PUDO DESARROLLAR}
+  609   if (modoApertura = 'r') then
+  610   if (modoApertura = 'e') then
+  611  end;
+  612 
+**************************************************************************
+* Compilador Turbo Pascal Version 7.0   Borland *           Pagina #  13 *
+* Listado fuente (Lst)                                 Fecha: 30/10/10   *
+*                                                      Hora.: 07/17/16   *
+**************************************************************************
+
+  613  procedure AbrirBinSeg(var Archivo:tarcCnstSeg; modoApertura:char);
+  614  begin
+  615   modoApertura:=' ';
+  616   if (modoApertura = 'w') then {POR FALTA DE TIEMPO NO SE PUDO DESARROLLAR}
+  617   if (modoApertura = 'r') then
+  618   if (modoApertura = 'e') then
+  619  end;
+  620 
+  621  procedure AbrirText(var Archivo: text; modoApertura: char);
+  622  begin
+  623   modoApertura:=' ';
+  624   if (modoApertura = 'w') then {POR FALTA DE TIEMPO NO SE PUDO DESARROLLAR}
+  625   if (modoApertura = 'r') then
+  626  end;
+  627 
+  628  function FileExistTxt(var nomLog:text): boolean;
+  629  begin                        {POR FALTA DE TIEMPO NO SE PUDO DESARROLLAR}
+  630   {$I-}
+  631   reset(nomLog);
+  632   {$I+}
+  633   FileExistTxt:=ioresult = 0;
+  634  end;
+  635 
+  636  procedure opcion;
+  637  var
+  638  opc: byte;
+  639  Cons: tarcCnstStar;
+  640  Seg: tarcCnstSeg;
+  641  begin
+  642  repeat
+  643    ClrScr;
+  644   ventana;
+  645    opc:=menuprin;
+  646    if(opc =1) then   cop(Cons,Seg);
+  647    if(opc =2) then   act(Cons,Seg);
+  648    if(opc =3) then   crea(Cons,Seg);
+  649    if(opc =4) then    writeln('Fin del programa');
+  650  until (opc = 4);
+  651 end;
+  652 
+  653 Begin
+  654  ClrScr;
+  655  opcion;
+  656  delay(1500);
+  657 end.
+  658 {ConsArchS(cnstStar);  llamar a consistencia Constelacion}
+  659 {ConsArch(CnstSeg);    llamar a consistencia Segmentos   }
+  660 
+  661 
+  662 
+

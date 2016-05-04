@@ -1,0 +1,242 @@
+ 1.
+ ?- innovadora(Empresa).
+Empresa = nokia ;
+Empresa = nokia ;
+Empresa = motorola ;
+Empresa = motorola ;
+Empresa = motorola ;
+Empresa = motorola ;
+Empresa = motorola ;
+Empresa = motorola ;
+Empresa = samsung ;
+Empresa = samsung ;
+Empresa = samsung ;
+Empresa = samsung ;
+Empresa = sonyEricsson ;
+Empresa = sonyEricsson ;
+false.
+
+ ?- insistente(Empresa).
+Empresa = samsung ;
+Empresa = samsung ;
+false.
+
+?- marketinera(Empresa).
+Empresa = samsung ;
+Empresa = samsung ;
+Empresa = samsung ;
+Empresa = samsung ;
+Empresa = samsung ;
+Empresa = samsung ;
+Empresa = samsung ;
+Empresa = samsung ;
+false.
+
+2.
+ ?- cumpleRequisito(Aplicacion,SistemaOperativo).
+Aplicacion = aceleradorDeDescargas,
+SistemaOperativo = windowsPhone ;
+Aplicacion = mapaLoco,
+SistemaOperativo = nokiaBelle ;
+Aplicacion = aceleradorDeDescargas,
+SistemaOperativo = android(2.37, [market, flash, multitask]) ;
+Aplicacion = haskellMobile,
+SistemaOperativo = android(2.37, [market, flash, multitask]) ;
+Aplicacion = aceleradorDeDescargas,
+SistemaOperativo = android(1.6, [market]) ;
+Aplicacion = aceleradorDeDescargas,
+SistemaOperativo = android(4.12, [market, flash, multitask]) ;
+Aplicacion = haskellMobile,
+SistemaOperativo = android(4.12, [market, flash, multitask]) ;
+Aplicacion = aceleradorDeDescargas,
+SistemaOperativo = android(4.22, [market, flash, multitask]) ;
+Aplicacion = haskellMobile,
+SistemaOperativo = android(4.22, [market, flash, multitask]) ;
+Aplicacion = aceleradorDeDescargas,
+SistemaOperativo = android(4.22, [market, flash, multitask]) ;
+Aplicacion = haskellMobile,
+SistemaOperativo = android(4.22, [market, flash, multitask]) ;
+Aplicacion = aceleradorDeDescargas,
+SistemaOperativo = android(3.22, [market, multitask]) ;
+Aplicacion = haskellMobile,
+SistemaOperativo = android(3.22, [market, multitask]) ;
+Aplicacion = mapaLoco,
+SistemaOperativo = symbian(s60) ;
+Aplicacion = aceleradorDeDescargas,
+SistemaOperativo = android(2.1, [market, multitask]) ;
+Aplicacion = haskellMobile,
+SistemaOperativo = android(2.1, [market, multitask]) ;
+Aplicacion = mapaLoco,
+SistemaOperativo = iOS([market, multitask, itunes]) ;
+Aplicacion = aceleradorDeDescargas,
+SistemaOperativo = iOS([market, multitask, itunes]) ;
+Aplicacion = haskellMobile,
+SistemaOperativo = iOS([market, multitask, itunes]) ;
+false.
+
+3.
+?- correAplicacion(Smartphone,mapaLoco).
+Smartphone = smartphone(nokia, n8) ;
+Smartphone = smartphone(sonyEricsson, vivaz) ;
+Smartphone = smartphone(mac, iphone4) ;
+false.
+ ?- correAplicacion(Smartphone,Aplicacion).
+Smartphone = smartphone(nokia, lumia710),
+Aplicacion = aceleradorDeDescargas ;
+Smartphone = smartphone(nokia, n8),
+Aplicacion = mapaLoco ;
+Smartphone = smartphone(motorola, xT615),
+Aplicacion = aceleradorDeDescargas ;
+Smartphone = smartphone(motorola, xT615),
+Aplicacion = haskellMobile ;
+Smartphone = smartphone(motorola, backflip),
+Aplicacion = aceleradorDeDescargas ;
+Smartphone = smartphone(motorola, razr),
+Aplicacion = aceleradorDeDescargas ;
+Smartphone = smartphone(motorola, razr),
+Aplicacion = haskellMobile ;
+Smartphone = smartphone(samsung, galaxyS4),
+Aplicacion = aceleradorDeDescargas ;
+Smartphone = smartphone(samsung, galaxyS4),
+Aplicacion = haskellMobile ;
+Smartphone = smartphone(samsung, galaxyS4),
+Aplicacion = aceleradorDeDescargas ;
+Smartphone = smartphone(samsung, galaxyS4),
+Aplicacion = haskellMobile ;
+Smartphone = smartphone(samsung, galaxySAdvance),
+Aplicacion = aceleradorDeDescargas ;
+Smartphone = smartphone(samsung, galaxySAdvance),
+Aplicacion = haskellMobile ;
+Smartphone = smartphone(samsung, galaxySAdvance),
+Aplicacion = aceleradorDeDescargas ;
+Smartphone = smartphone(samsung, galaxySAdvance),
+Aplicacion = haskellMobile ;
+Smartphone = smartphone(samsung, galaxySAdvance),
+Aplicacion = aceleradorDeDescargas ;
+Smartphone = smartphone(samsung, galaxySAdvance),
+Aplicacion = haskellMobile ;
+Smartphone = smartphone(sonyEricsson, vivaz),
+Aplicacion = mapaLoco ;
+Smartphone = smartphone(sonyEricsson, x8),
+Aplicacion = aceleradorDeDescargas ;
+Smartphone = smartphone(sonyEricsson, x8),
+Aplicacion = haskellMobile ;
+Smartphone = smartphone(mac, iphone4),
+Aplicacion = mapaLoco ;
+Smartphone = smartphone(mac, iphone4),
+Aplicacion = aceleradorDeDescargas ;
+Smartphone = smartphone(mac, iphone4),
+Aplicacion = haskellMobile ;
+false.
+
+4.
+?- funcionaEn(mapaLoco,Smartphones).
+Smartphones = [smartphone(nokia, n8), smartphone(sonyEricsson, vivaz), smartphone(mac, iphone4)] ;
+Smartphones = [smartphone(nokia, n8), smartphone(sonyEricsson, vivaz), smartphone(mac, iphone4)] ;
+Smartphones = [smartphone(nokia, n8), smartphone(sonyEricsson, vivaz), smartphone(mac, iphone4)] ;
+false.
+
+5.
+?- esCopada(Marca).
+Marca = samsung ;
+Marca = samsung ;
+Marca = samsung ;
+false.
+?- esCopada(nokia).
+false.
+
+6.
+?- elDesterrado(SistemaOperativo).
+SistemaOperativo = sistemaTigre(2.3, sumergible).
+
+7.sin recursividad
+ ?- mayorCantidadDeModelos(Marca).
+Marca = motorola ;
+Marca = motorola ;
+Marca = motorola ;
+false.
+
+7.con recursividad
+?- mayorCantidadDeModelos(Marca).
+Marca = motorola ;
+false.
+
+8.
+?- nombresSistemasOperativos(Nombres).
+Nombres = [windowsPhone, nokiaBelle, symbian, android, iOS, sistemaTigre] ;
+
+9.
+ ?- correEn(Nombre,Marcas).
+Nombre = windowsPhone,
+Marcas = [nokia] ;
+Nombre = nokiaBelle,
+Marcas = [nokia] ;
+Nombre = android,
+Marcas = [motorola, samsung, sonyEricsson] ;
+Nombre = android,
+Marcas = [motorola, samsung, sonyEricsson] ;
+Nombre = android,
+Marcas = [motorola, samsung, sonyEricsson] ;
+Nombre = android,
+Marcas = [motorola, samsung, sonyEricsson] ;
+Nombre = android,
+Marcas = [motorola, samsung, sonyEricsson] ;
+Nombre = symbian,
+Marcas = [sonyEricsson] ;
+Nombre = android,
+Marcas = [motorola, samsung, sonyEricsson] ;
+Nombre = iOS,
+Marcas = [mac] ;
+Nombre = sistemaTigre,
+Marcas = [moscovich] ;
+false.
+
+10.
+?- compatibleConTodosExceptoUno(Marca).
+Marca = sonyEricsson ;
+Marca = sonyEricsson ;
+Marca = sonyEricsson ;
+Marca = sonyEricsson ;
+Marca = sonyEricsson ;
+Marca = sonyEricsson ;
+Marca = sonyEricsson ;
+Marca = sonyEricsson ;
+Marca = sonyEricsson ;
+Marca = sonyEricsson ;
+Marca = sonyEricsson ;
+Marca = sonyEricsson ;
+false.
+
+11.
+?- puedenConectarse(Persona).
+Persona = hernan ;
+Persona = juan ;
+Persona = mariano ;
+Persona = rodrigo ;
+false.
+
+12.
+?- smartphonesPosibles(3000, AlternativasPosiblesSmartphone).
+AlternativasPosiblesSmartphone = [galaxySAdvance] ;
+AlternativasPosiblesSmartphone = [lumia710, backflip] ;
+AlternativasPosiblesSmartphone = [lumia710, vivaz] ;
+AlternativasPosiblesSmartphone = [lumia710, x8] ;
+AlternativasPosiblesSmartphone = [lumia710] ;
+AlternativasPosiblesSmartphone = [n8, backflip] ;
+AlternativasPosiblesSmartphone = [n8, vivaz] ;
+AlternativasPosiblesSmartphone = [n8, x8] ;
+AlternativasPosiblesSmartphone = [n8] ;
+AlternativasPosiblesSmartphone = [xT615, backflip] ;
+AlternativasPosiblesSmartphone = [xT615] ;
+AlternativasPosiblesSmartphone = [backflip, vivaz] ;
+AlternativasPosiblesSmartphone = [backflip, x8] ;
+AlternativasPosiblesSmartphone = [backflip] ;
+AlternativasPosiblesSmartphone = [vivaz, x8] ;
+AlternativasPosiblesSmartphone = [vivaz] ;
+AlternativasPosiblesSmartphone = [x8] ;
+AlternativasPosiblesSmartphone = [razr] ;
+AlternativasPosiblesSmartphone = [].
+
+
+
+

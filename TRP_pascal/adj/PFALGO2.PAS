@@ -1,0 +1,564 @@
+Program pases;
+Uses
+      Crt, Dos;
+Const
+CANT_STAR = 25;          {declaracion de constante Cant_Star}
+
+Type                     {tipo de datos para la constalaciones y estrellas}
+str20= string[20];
+str30= string[30];
+
+{Define los Vectores}
+tregStar= record                {registro vector de estrella}
+          nomStar: str20;
+          coordX,
+          coordY: word;
+          nroOrden: byte;
+          end;
+
+tregSeg=  record                {registro vector de segmentos}
+          ptoOrigen,
+          ptoDestino: byte;
+          end;
+
+
+{Define la longitud de los Vectores}
+tvStar = array [1..cant_star]  of tregStar;   {arreglo de estrellas max 25}
+tvSeg  = array [1..cant_star]  of tregSeg;    {arreglo de segmentos max 25}
+
+{Define los Tipos de registros de los Binarios}
+
+tregCnstStar= record                      {Registro const Estrella/ Reg Bin}
+               nomCnstlcn: str30;
+               cjtoStar  : tvStar;
+              end;
+
+tregCnstSeg = record                      {Registro const Estrella/ Reg Bin}
+               nomCnsSeg: str30;
+               cjtoSeg  : tvSeg;
+              end;
+
+{Define los tipos de registros de los Binarios}
+tarcCnstStar = file of tregCnstStar;
+tarcCnstSeg  = file of tregCnstSeg;
+
+ Function FileExistBin(var nomLog:tarcCnstStar): Boolean;
+     begin
+         {$I-}
+         reset(nomLog);
+         {$I+}
+         fileExistBin:= ioresult=0;
+     end;{FileExistBin}
+
+Function FileExistBinS(var nomLog:tarcCnstSeg): Boolean;
+     begin
+         {$I-}
+         reset(nomLog);
+         {$I+}
+         fileExistBins:= ioresult=0;
+     end;{FileExistBinS}
+
+
+Function FileExistText(var nomLog: text): Boolean;
+     begin
+         {$I-}
+         reset(nomLog);
+         {$I+}
+         fileExistText:= ioresult=0;
+     end;{FileExiystText}
+
+function menuprin:byte;
+  var
+  op : byte;
+  begin
+   repeat
+    gotoxy(21,20); writeln('Elija una opcion');
+    gotoxy(21,11); writeln('1. Crear archivos Binarios de Constelaciones');
+    gotoxy(21,13); writeln('2. Agregar Nueva Constelacion');
+    gotoxy(21,15); writeln('3. Consultar Archivo de Constelaciones');
+    gotoxy(21,17); writeln('4. Salir de la Aplicacion');
+    gotoxy(21,21); readln(op)
+   until (op<5)and(op>0);
+   menuprin := op;
+   ClrScr;
+  end;
+
+ procedure AbrirBinStar(var Archivo:tarcCnstStar; modoApertura:char);
+ var
+                 {DECLARACION DE VARIABLES}
+  Con:tregCnstStar;
+ begin
+
+  if (modoApertura = 'w') then begin
+     reset(Archivo);
+   end;
+
+  if (modoApertura = 'r') then begin
+  reset(Archivo); end;
+
+  if (modoApertura = 'e') then begin
+    reset(Archivo);
+    seek(Archivo,filesize(Archivo));
+     end;
+ end;
+
+ procedure AbrirBinSeg(var Archivo:tarcCnstSeg; modoApertura:char);
+ var                   {DECLARACION DE VARIABLES}
+
+ Seg:tregCnstSeg;
+ begin
+
+  if (modoApertura = 'w') then begin
+     reset(Archivo);
+   end;
+
+  if (modoApertura = 'r') then begin
+  reset(Archivo); end;
+
+  if (modoApertura = 'e') then begin
+    reset(Archivo);
+    seek(Archivo,filesize(Archivo));
+     end;
+ end;
+
+ procedure AbrirText(var Archivo: text; modoApertura: char);
+ begin
+
+  if (modoApertura = 'w') then  begin
+  append(Archivo);
+  end;
+
+  if (modoApertura = 'r') then begin
+  reset(Archivo);
+  end;
+ end;
+  function CnsArchS (var Archivo:tarcCnstSeg):Boolean;
+ var
+ Confirmacion: Char;
+ Begin
+
+    If FileExistBinS(Archivo)= true  then
+        Begin
+              writeln (#10,'>>> El archivo existe <<<',#10);
+              repeat
+                  write ('求esea reemplazarlo? s=> si || n=> no : ');
+                  readln(Confirmacion);
+                  Confirmacion:= upcase(Confirmacion);
+              Until (Confirmacion='S') or (Confirmacion='N');
+
+              if Confirmacion ='S' then  begin
+                   CnsArchS:=true;
+                   end
+              else
+                 CnsArchS:=false;
+               {volver al menu?}
+        end
+    else
+        begin
+         writeln(#10);
+         writeln ('>>> 耍TENCION!: El nombre del Archivo ingresado no existe <<<');
+         repeat
+                  writeln;
+                  write ('求esea crearlo? s=> si || n=> no : ');
+                  readln (Confirmacion);
+                  Confirmacion:= upcase(Confirmacion);
+
+         Until (Confirmacion='S') or (Confirmacion='N');
+
+         if Confirmacion ='S' then
+            begin
+             CnsArchS:=true;
+            end
+         else
+            begin
+              CnsArchS:=false;
+              {volver al menu?}
+            end
+        end;
+
+End;{ConsArch}
+
+{Consistencia Binarios 2 }
+function CnsArchC (var Archivo:tarcCnstStar):Boolean;
+ var
+ Confirmacion: Char;
+ Begin
+    If FileExistBin(Archivo)=true  then
+        Begin
+              writeln (#10,'>>> El archivo existe <<<',#10);
+              repeat
+                  write ('求esea reemplazarlo? s=> si || n=> no : ');
+                  readln(Confirmacion);
+                  Confirmacion:= upcase(Confirmacion);
+              Until (Confirmacion='S') or (Confirmacion='N');
+
+              if Confirmacion ='S' then
+                 begin
+                    CnsArchC:=true;
+                 end
+              else
+                 CnsArchC:=false;
+               {volver al menu?}
+        end
+    else
+        begin
+
+         writeln(#10);
+         writeln ('>>> 耍TENCION!: El nombre del Archivo ingresado no existe <<<');
+         repeat
+                  writeln;
+                  write ('求esea crearlo? s=> si || n=> no : ');
+                  readln (Confirmacion);
+                  Confirmacion:= upcase(Confirmacion);
+
+         Until (Confirmacion='S') or (Confirmacion='N');
+
+         if Confirmacion ='S' then
+            begin
+              CnsArchC:=true;
+            end
+         else
+            begin
+              CnsArchC:=false;
+              {volver al menu?}
+            end
+        end;
+
+end;
+
+procedure grabar(var archivoC:tarcCnstStar;var archivoS:tarcCnstSeg);
+var
+archivotxt :text;
+nomtxt,nombinC,nombinS: string;
+mAp,caracter:char;
+Con:tregCnstStar;
+Seg:tregCnstSeg;
+i,j:byte;
+
+  begin
+    nomtxt:=' ';nombinC:=' ';nombinS:=' ';
+    mAp:=' ';
+   writeln('Archivos a Crear a partir de un archivo.txt');
+    write ('Ingrese nombre del archivo binario Constelacion :');
+   readln(nombinC);
+    assign(archivoC,nombinC+'.dat');
+    If (CnsArchC(archivoC)= true)   then begin  {CONSISTENCIA DE ARCHIVO BINARIO CONSTELACION}
+
+     rewrite(archivoC);
+     close(archivoC);
+     mAp:='w';
+     AbrirBinStar(archivoC,mAp);
+
+     write ('Ingrese nombre del archivo binario Segmentos :');
+     readln(nombinS);
+     assign(archivoS,nombinS+'.dat');
+     If (CnsArchS(archivoS)= true)  then  begin {CONSISTENCIA DE ARCHIVO BINARIO SEGMENTOS}
+
+     rewrite(archivoS);
+     close(archivoS);
+     AbrirBinSeg(archivoS,mAp);
+
+      writeln('Ingrese nombre(Cnstlcns)del archivo de texto nombre.txt: ');
+      readln(nomtxt);
+      assign(archivotxt,nomtxt+'.txt');
+      if( FileExistText(archivotxt) = true) then   begin  {CONSISTENCIA DE ARCHIVO TXT}
+       mAp:='r';
+       AbrirText(archivotxt,mAp);
+       i:=0;
+
+       while not eof(archivotxt) do begin
+       i:=0;
+       readln(archivotxt,Con.nomCnstlcn);
+       Seg.nomCnsSeg:=Con.nomCnstlcn;
+       writeln('constelacion:  ',Con.nomCnstlcn);
+       delay(1000);
+       repeat      begin
+   readln(archivotxt,Con.cjtoStar[i].coordX,Con.cjtoStar[i].coordY,Con.cjtoStar[i].nroOrden,caracter,Con.cjtoStar[i].nomStar);
+       i:=i+1;
+       end;
+       until ((Con.cjtoStar[i-1].nroOrden =0)or (i = 25));
+       write(archivoC,Con);
+       j:=0;
+
+       repeat  begin
+   readln(archivotxt,Seg.cjtoSeg[j].ptoOrigen,Seg.cjtoSeg[j].ptoDestino);
+      j:=j+1;
+      end;
+      until ((Seg.cjtoSeg[j-1].ptoOrigen =0) and(Seg.cjtoSeg[j-1].ptoDestino =0));
+      write(archivoS,Seg);
+      end;
+       close(archivoC);
+       close(archivoS);
+       close(archivotxt);
+       writeln('Archivos creados');
+       delay(1000);
+      end
+     else
+      begin
+      writeln('no existe el archivo de texto');
+      delay(1000);
+      exit;
+      end;
+     end
+    else
+     begin
+      writeln('no se creo el archivo segmentos');
+      delay(1000);
+      exit;
+     end;
+    end
+   else
+    begin
+     writeln('no se creo el archivo constelacion');
+     delay(1000);
+     exit;
+    end;
+end;
+
+procedure actualizar(var ArchivoC :tarcCnstStar;var ArchivoS:tarcCnstSeg);
+var
+archivotxt :text;
+nomtxt,nombinC,nombinS: string;
+mAp,caracter:char;
+Con:tregCnstStar;
+Seg:tregCnstSeg;
+i,num1,j:byte;
+
+begin
+  nomtxt:=' ';nombinC:=' ';nombinS:=' ';
+    mAp:=' ';
+   writeln('Archivos a actualizar a partir de un archivo txt');
+    write ('Ingrese nombre del archivo binario Constelacion :');
+   readln(nombinC);
+    assign(archivoC,nombinC+'.dat');
+    If (FileExistBin(archivoC)= true)   then begin  {CONSISTENCIA DE ARCHIVO BINARIO CONSTELACION}
+
+     mAp:='e';
+     AbrirBinStar(archivoC,mAp);
+
+     write ('Ingrese nombre del archivo binario Segmentos :');
+     readln(nombinS);
+     assign(archivoS,nombinS+'.dat');
+     If (FileExistBinS(archivoS)= true)  then  begin {CONSISTENCIA DE ARCHIVO BINARIO SEGMENTOS}
+
+     AbrirBinSeg(archivoS,mAp);
+
+      writeln('Ingrese nombre(Cnstlact)del archivo de texto: ');
+      readln(nomtxt);
+      assign(archivotxt,nomtxt+'.txt');
+      if( FileExistText(archivotxt) = true) then   begin  {CONSISTENCIA DE ARCHIVO TXT}
+       mAp:='r';
+       AbrirText(archivotxt,mAp);
+       i:=0;
+
+       seek(archivoC,filesize(ArchivoC)); {POSICIONAMIENTO DE PUNTERO}
+       seek(archivoS,filesize(ArchivoS));
+
+       while not eof(archivotxt) do begin
+       i:=0;
+       readln(archivotxt,Con.nomCnstlcn);
+       Seg.nomCnsSeg:=Con.nomCnstlcn;
+
+       repeat      begin
+   readln(archivotxt,Con.cjtoStar[i].coordX,Con.cjtoStar[i].coordY,Con.cjtoStar[i].nroOrden,caracter,Con.cjtoStar[i].nomStar);
+       i:=i+1;
+       end;
+       until ((Con.cjtoStar[i-1].nroOrden =0)or (i = 25));
+       write(archivoC,Con);
+       j:=0;
+
+       repeat  begin
+   readln(archivotxt,Seg.cjtoSeg[j].ptoOrigen,Seg.cjtoSeg[j].ptoDestino);
+      j:=j+1;
+      end;
+      until ((Seg.cjtoSeg[j-1].ptoOrigen =0) and(Seg.cjtoSeg[j-1].ptoDestino =0));
+      write(archivoS,Seg);
+      end;
+       close(archivoC);
+       close(archivoS);
+       close(archivotxt);
+      end
+     else
+      begin
+      exit;
+      end;
+     end
+    else
+     begin
+      exit;
+     end;
+    end
+   else
+    begin
+     exit;
+    end;
+
+end;
+
+procedure leer(var archivoC:tarcCnstStar;var archivoS:tarcCnstSeg);
+var
+Con: tregCnstStar;
+Seg : tregCnstSeg;
+archivotxt,archivoV :text;
+mAp:char;
+nor,opc,i,j,num1,ptoor,ptodes:byte;
+nest,nocons,nomtxt,nombinS,nombinC:str30;
+cox,coy:word;
+begin
+  writeln('Archivo.txt a Crear a partir de archivos');
+  writeln('selecione una opcion valida');
+  writeln('1. Archivos binarios Constelacion y Estrella ');
+  writeln('2. Archivo de texto  Cnstlcns.txt');
+  readln(opc);
+
+  writeln('Ingrese nombre del archivo de texto a crear: ');
+  readln(nomtxt);
+  assign(archivotxt,nomtxt+'.txt');
+  rewrite(archivotxt);
+  close(archivotxt);
+  mAp:='w';
+  AbrirText(archivotxt,mAp);
+
+    if opc = 1 then         begin
+     write('Ingrese nombre del archivo binario Constelacion :');
+     readln(nombinC);
+     assign(archivoC,nombinC+'.dat');
+
+     if (FileExistBin(archivoC)= true)   then   begin
+      AbrirBinStar(archivoC,mAp);
+      write ('Ingrese nombre del archivo binario Segmentos :');
+      readln(nombinS);
+      assign(archivoS,nombinS+'.dat');
+
+      if (FileExistBinS(archivoS)= true)  then   begin
+       AbrirBinSeg(archivoS,mAp);
+       num1:=0;
+       i:=0;
+       j:=0;
+       writeln(' tama寸 de registro archivoC estrellas ',filesize(archivoC));
+       writeln(' tama寸 de registro archivoS segmentos ',filesize(archivoS));
+       delay(1000);
+
+       while ((not eof(archivoC)) or(num1 = 50)) do  begin
+       read(archivoC,Con);
+       writeln(archivotxt,'contelacion:',Con.nomCnstlcn:30);
+       i:=0;
+         writeln(archivotxt,'Nro.Orden   Nombre de la Estrella        Coord X   Coord Y');
+         while not ((Con.cjtoStar[i].nroOrden =0)or (i = 25))  do begin
+writeln(archivotxt,Con.cjtoStar[i].nroOrden:5,Con.cjtoStar[i].nomStar:30,Con.cjtoStar[i].coordX:10,Con.cjtoStar[i].coordY:12);
+   i:=i+1;
+         end;
+         read(archivoS,Seg);
+         j:=0;
+         writeln(archivotxt,'Pto.Origen    Pto.Destino');
+         while not((Seg.cjtoSeg[j].ptoOrigen =0) and(Seg.cjtoSeg[j].ptoDestino =0)) do begin
+          writeln(archivotxt,Seg.cjtoSeg[j].ptoOrigen:5,Seg.cjtoSeg[j].ptoDestino:10);
+          j:=j+1;
+         end;
+
+        num1:= num1 +1;
+        writeln(archivotxt,'           ');
+      end;
+
+      close(archivotxt);
+      close(archivoC);
+      close(archivoS);
+
+       end
+       else  begin
+         writeln('no existe Ar. Seg'); delay(500); exit;
+         end
+       end
+      else begin
+         writeln('no existe Ar. Con'); delay(500); exit;
+         end
+      end
+      else    begin
+
+           assign(archivoV,'Cnstlcns.txt');
+           mAp:='r';
+           AbrirText(archivoV,mAp);
+           mAp:='w';
+           AbrirText(archivotxt,mAp);
+         {  reset(archivoV);
+           append(archivotxt);
+	    {Carga el Nuevo Txt con el contenido del Antiguo Txt}
+	    while not eoln(archivoV) do
+	     begin
+	      i:=0;
+	      j:=0;
+	      {Carga el Nuevo Txt con la Constelacion del Antiguo Txt}
+	      readln(archivoV,nocons);
+              writeln(archivotxt,'      ');
+	      write (archivotxt,'Constelacion: ');
+	      writeln(archivotxt,nocons);
+	      {Carga en el Nuevo Txt con las Estrellas del Antiguo Txt}
+	      repeat
+	        if i = 0 then
+		 begin
+		  i:=1;
+		  writeln(archivotxt,'Nro.Orden   Nombre de la Estrella        Coord X   Coord Y');
+		  readln(archivoV,cox,coy,nor,nest);
+		  writeln(archivotxt,nor:5,nest:17,cox:26,coy:10);
+		 end
+		else
+		 begin
+		  readln(archivoV,cox,coy,nor,nest);
+		  writeln(archivotxt,nor:5,nest:17,cox:26,coy:10);
+		 end;
+	      until (nest=' *');
+	      {Carga en el Nuevo Txt con los Segmento del Antiguo Txt}
+	      repeat
+                if j = 0 then
+		 begin
+		  j:=1;
+		  writeln(archivotxt,'Pto.Origen    Pto.Destino');
+		  readln(archivoV,ptoor,ptodes);
+		  writeln(archivotxt,ptoor:5,ptodes:14);
+		 end
+		else
+		 begin
+		  readln(archivoV,ptoor,ptodes);
+		  writeln(archivotxt,ptoor:5,ptodes:14);
+		 end;
+	      until ((ptoor=0) and (ptodes=0));
+	    end;
+	    close(archivotxt);
+	    close(archivoV);
+	 end;
+
+end;
+
+
+procedure opcion;
+var
+opc: byte;
+Cons: tarcCnstStar;
+Seg: tarcCnstSeg;
+ begin
+  repeat
+   ClrScr;
+
+   opc:=menuprin;
+   if(opc =1) then begin
+     grabar(Cons,Seg);
+     end;
+   if(opc =2) then begin
+    actualizar(Cons,Seg);
+    end;
+   if(opc =3) then   begin
+    leer(Cons,Seg);
+   end;
+   if(opc =4) then   begin
+   writeln('Fin del programa');
+   end;
+ until (opc = 4);
+
+end;
+Begin
+ ClrScr;
+  ClrScr;
+ opcion;
+ delay(500);
+
+end.

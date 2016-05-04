@@ -1,0 +1,66 @@
+**************************************************************************
+* Compilador Turbo Pascal Version 7.0   Borland *           Pagina #   1 *
+* Listado fuente (Lst)                                 Fecha: 02/11/10   *
+*                                                      Hora.: 08/11/26   *
+**************************************************************************
+
+    1 Program pases;
+    2 uses
+    3 crt;
+    4 type
+    5 treg = record
+    6  nom:string;
+    7  num: byte;
+    8  end;
+    9  arch =  file of treg;
+   10 var
+   11 archivotxt1, archivotxt: Text;
+   12 archivo1,archivo2: arch;
+   13 nom1:string;
+   14 num1:byte;
+   15 rBin:treg;
+   16 Begin
+   17 ClrScr;
+   18 nom1:='*'; num1:=0;
+   19 
+   20 assign(archivo1,'2.dat');
+   21 rewrite(archivo1);
+   22 rBin.nom:='*'; rBin.num:=0;
+   23 {close(archivo1);}
+   24 writeln;
+   25 
+   26 assign(archivotxt,'1.txt');
+   27 reset(archivotxt);
+   28 writeln(rBin.nom,'  antes de leer    ',rBin.num);
+   29 read(archivotxt,rBin.nom,rBin.num);
+   30 
+   31 writeln(rBin.nom,'leidas del txt  ',rBin.num);
+   32 nom1:=rBin.nom;num1:=rBin.num;
+   33 {close(archivo1);
+   34 
+   35 reset(archivo1);}
+   36 
+   37 writeln;writeln;writeln;
+   38 
+   39  delay(3000);
+   40 assign(archivotxt1,'2.txt');
+   41 rewrite(archivotxt1);
+   42 close(archivotxt1);
+   43 append(archivotxt1);
+   44 nom1:=rBin.nom;
+   45 num1:=rBin.num;
+   46 writeln(nom1,' pasadas al txt  ',num1);
+   47 delay(3000);
+   48 write(archivotxt1,nom1,num1);
+   49 close(archivotxt1);
+   50 
+   51 
+**************************************************************************
+* Compilador Turbo Pascal Version 7.0   Borland *           Pagina #   2 *
+* Listado fuente (Lst)                                 Fecha: 02/11/10   *
+*                                                      Hora.: 08/11/26   *
+**************************************************************************
+
+   52 end.
+   53 
+
