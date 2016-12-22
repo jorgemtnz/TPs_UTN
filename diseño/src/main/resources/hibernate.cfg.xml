@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/pdi</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="connection.password">root</property>
+		<property name="connection.pool_size">25</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="show_sql">true</property>
+		<property name="format_sql">true</property>
+		<property name="hbm2ddl.auto">create-drop</property>
+        
+        <mapping class="ar.edu.utn.d2s.Coordenada" />
+		<mapping class="ar.edu.utn.d2s.AreaComuna" />
+		<mapping class="ar.edu.utn.d2s.BancoSucursal" />
+		<mapping class="ar.edu.utn.d2s.Cgp" />
+		<mapping class="ar.edu.utn.d2s.Colectivo" />
+		<mapping class="ar.edu.utn.d2s.LocalComercial" />
+		<mapping class="ar.edu.utn.d2s.PuntoInteres" />
+		<mapping class="ar.edu.utn.d2s.RangoHorario" />
+		<mapping class="ar.edu.utn.d2s.Horario" />
+		<mapping class="ar.edu.utn.d2s.Repositorio" />
+		<mapping class="ar.edu.utn.d2s.Servicio" />
+		<mapping class="ar.edu.utn.d2s.UsuarioTerminal" />
+		<mapping class="ar.edu.utn.d2s.InformacionBusqueda" />
+		<mapping class="ar.edu.utn.d2s.OrigenBancoExterno" />
+		<mapping class="ar.edu.utn.d2s.OrigenCgpExterno" />
+		<mapping class="ar.edu.utn.d2s.Busqueda" />
+		<mapping class="ar.edu.utn.d2s.ObservadoresConsulta.AbstractObservadorConsulta" />
+		<mapping class="ar.edu.utn.d2s.ObservadoresConsulta.GenerarReportes" />
+		<mapping class="ar.edu.utn.d2s.ObservadoresConsulta.GuardarBusqueda" />
+		<mapping class="ar.edu.utn.d2s.ObservadoresConsulta.LoggerTerminal" />
+		<mapping class="ar.edu.utn.d2s.ObservadoresConsulta.MailAdmin" />             
+    </session-factory>
+</hibernate-configuration>

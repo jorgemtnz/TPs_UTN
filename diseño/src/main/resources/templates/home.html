@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>home</title>
+<link rel="stylesheet" href="lib/bootstrap.min.css" />
+<link rel="stylesheet" href="css/estiloGeneral.css" />
+</head>
+<body>
+	
+	<div class="row container-fluid">
+		<div class="col-md-5">
+
+			<div>
+				<div class="row container-fluid">
+					<div class="col-md-2">
+						<a id="home" type="button" class="btn btn-default" href="/home">Home
+						</a>
+					</div>
+
+					<div class="col-md-2">
+						<a id="Busqueda" type="button" class="btn btn-default"
+							href="/busqueda">Busqueda </a>
+					</div>
+					<div class="col-md-2">
+						<a id="Historial" type="button" class="btn btn-default"
+							href="/historialBusqueda">Historial</a>
+					</div>
+					<div class="col-md-2">
+						<a id="AccionesBusqueda" type="button" class="btn btn-default"
+							href="/accionesBusqueda">AccionesBusqueda</a>
+					</div>
+					<div class="col-md-2"></div>
+				</div>
+			</div>
+
+		</div>
+		<div class="col-md-2"></div>
+		<div class="col-md-2">
+			<a href="/logout" type="submit" id="buttonlog"
+				class="btn btn-default">Desloguearme</a>
+		</div>
+
+		<div class="col-md-1">UsuarioLogueado:</div>
+		<div class="col-md-2">
+			<div class="form-content">
+				<p th:text="${userName}"></p>
+			</div>
+		</div>
+	</div>
+
+	<div class="well">
+		<h1>Home</h1>
+	</div>
+	<div class="container" style="margin-top: 2%;">
+		<h3>Bienvenido al Sistema Punto Interés.</h3>
+		<p>El sistema punto interés le permite localizar diferentes puntos
+			de interés como Bancos, CGP, Colectivos con sus paradas, locales
+			comerciales, etc.</p>
+		<p>“Un punto de interés o "PDI" ( en inglés POI ), es un punto de
+			ubicación específica que alguien puede encontrar útil o interesante.
+			Un ejemplo es un punto de la Tierra que representa la ubicación de
+			edificios, un punto en Marte que representa la ubicación de la
+			montaña el Monte Olimpo . La mayoría de los usuarios utilizan el
+			término para referirse a hoteles, campings, estaciones de servicio,
+			radares o cualquier otras categorías utilizadas en los modernos
+			sistemas de navegación para automóviles . (...) Un punto de interés
+			GPS precisa, como mínimo, latitud y longitud del PDI, asumiendo un
+			cierto datos de mapas .”</p>
+	</div>
+
+
+</body>
+<script src="lib/jquery-1.11.3.min.js"></script>
+<script src="lib/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+</html>

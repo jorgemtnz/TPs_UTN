@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>accionesBusqueda</title>
+<link rel="stylesheet" href="lib/bootstrap.min.css" />
+<link rel="stylesheet" href="css/estiloGeneral.css" />
+</head>
+<body>
+		<div class="row container-fluid">
+		<div class="col-md-5">
+
+			<div>
+				<div class="row container-fluid">
+					<div class="col-md-2">
+						<a id="home" type="button" class="btn btn-default" href="/home">Home
+						</a>
+					</div>
+
+					<div class="col-md-2">
+						<a id="Busqueda" type="button" class="btn btn-default"
+							href="/busqueda">Busqueda </a>
+					</div>
+					<div class="col-md-2">
+						<a id="Historial" type="button" class="btn btn-default"
+							href="/historialBusqueda">Historial</a>
+					</div>
+					<div class="col-md-2">
+						<a id="AccionesBusqueda" type="button" class="btn btn-default"
+							href="/accionesBusqueda">AccionesBusqueda</a>
+					</div>
+					<div class="col-md-2"></div>
+				</div>
+			</div>
+
+		</div>
+		<div class="col-md-2"></div>
+		<div class="col-md-2">
+			<a href="/logout" type="submit" id="buttonlog"
+				class="btn btn-default">Desloguearme</a>
+		</div>
+
+		<div class="col-md-1">UsuarioLogueado:</div>
+		<div class="col-md-2">
+			<div class="form-content">
+				<p th:text="${userName}"></p>
+			</div>
+		</div>
+	</div>
+
+	<div class="well">
+		<h1>Acciones Ante la B&uacute;squeda</h1>
+	</div>
+	<div class="container">
+
+		<div class="row">
+			<div class="col-sm-8">
+
+				<div class="form-group">
+					<div class="col-xs-12 selectContainer">
+						<p>Seleccione una acci&oacute;n</p>
+						<select class="form-control" name="color" id="opcionesAcciones">
+							<option th:each="accionesUsrD: ${accionesUsuarioD}"><p
+									th:text="${accionesUsrD.toString()}"></p>
+							</option>
+
+						</select>
+					</div>
+				</div>
+
+			</div>
+			<div class="col-sm-4">
+				<button type="button" class="btn btn-primary" id="btnAgregarAcc"
+					onclick="agregarAccion()">Agregar</button>
+			</div>
+
+		</div>
+
+		<div class="container">
+			<p></p>
+		</div>
+		<div class="container">
+			<p></p>
+		</div>
+		<div class="container">
+			<p></p>
+		</div>
+		<div class="container">
+			<p></p>
+		</div>
+		<div class="panel panel-danger" style="border: 3px #a94442 solid">
+			<div class="panel-heading">
+				<h2>Acciones</h2>
+			</div>
+			<table class="table table-striped" id="listaAccUsr">
+				<thead>
+					<tr>
+						<th>Nombre</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr id="accUsr" th:each="accionesUsr: ${accionesUsuario}">
+						<td th:text="${accionesUsr.toString()}">-</td>
+						<td class="minimal_cell">
+							<div class="btn-group" role="group">
+								<a th:onclick="'deleteAccion(\'' + ${accionesUsr.getIdAbstractObservador()}  + '\');'"
+									role="button" class="btn btn-default">Borrar</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="row">
+			<form method="post" action="/accionesBusqueda">
+		
+				<input id="nuevaAccion" name="nuevaAccion" readonly="readonly"/>
+				
+				<button type="submit" class="btn btn-primary">OK</button>
+			
+			</form>
+
+		
+		</div>
+
+		<div>
+			<p></p>
+		</div>
+		<div>
+			<a href="/home" class="btn btn-primary"    data-toggle="tooltip" title="Regresa al Home">Cancelar</a>
+		</div>
+	</div>
+
+
+
+</body>
+<script src="lib/jquery-1.11.3.min.js"></script>
+<script src="lib/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/accionesUsr.js"></script>
+</html>

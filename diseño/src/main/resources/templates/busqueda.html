@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Busqueda</title>
+<link rel="stylesheet" href="lib/bootstrap.min.css" />
+<link rel="stylesheet" href="css/estiloGeneral.css" />
+</head>
+<body>
+
+	<div class="row container-fluid">
+		<div class="col-md-5">
+
+			<div>
+				<div class="row container-fluid">
+					<div class="col-md-2">
+						<a id="home" type="button" class="btn btn-default" href="/home">Home
+						</a>
+					</div>
+
+					<div class="col-md-2">
+						<a id="Busqueda" type="button" class="btn btn-default"
+							href="/busqueda">Busqueda </a>
+					</div>
+					<div class="col-md-2">
+						<a id="Historial" type="button" class="btn btn-default"
+							href="/historialBusqueda">Historial</a>
+					</div>
+					<div class="col-md-2">
+						<a id="AccionesBusqueda" type="button" class="btn btn-default"
+							href="/accionesBusqueda">AccionesBusqueda</a>
+					</div>
+					<div class="col-md-2"></div>
+				</div>
+			</div>
+
+		</div>
+		<div class="col-md-2"></div>
+		<div class="col-md-2">
+			<a href="/logout" type="submit" id="buttonlog"
+				class="btn btn-default">Desloguearme</a>
+		</div>
+
+		<div class="col-md-1">UsuarioLogueado:</div>
+		<div class="col-md-2">
+			<div class="form-content">
+				<p th:text="${userName}"></p>
+			</div>
+		</div>
+	</div>
+
+	<div id="desBusqueda">
+		<div class="well">
+			<h1>Criterio de B&uacute;squeda</h1>
+		</div>
+		<div class="container" style="margin-top: 2%">
+			<h3>Nombre</h3>
+		</div>
+		<div class="container" style="margin-top: 1%">
+			<div class="row">
+				<div class="col-sm-4">
+					<!--Los campos de busqueda se agregan por jquery-->
+					<div class="container-fluid" id="campos-busqueda"></div>
+				</div>
+				<div class="col-sm-8">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-sm-1"></div>
+							<div class="col-sm-2">
+								<button class="btn" id="btnAgregar">Agregar</button>
+							</div>
+							<div class="col-sm-1"></div>
+							<div class="col-sm-2">
+								<button class="btn" id="btnBuscar">Buscar</button>
+							</div>
+							<div class="col-sm-6"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br />
+			<div class="panel panel-danger" style="border: 3px #a94442 solid">
+				<div class="panel-heading">
+					<h2>Resultado</h2>
+				</div>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Direcci&oacute;n</th>
+							<th>Detalle</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="pdi: ${pdis}">
+							<td th:text="${pdi.nombre}">-</td>
+							<td th:text="${pdi.getDireccion()}">-</td>
+							<td><a id="idAnchor"
+								style="color: #0080ff; font-weight: bold"
+								th:href="${'/pdi/' + pdi.id}">Ver</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div>
+				<p></p>
+			</div>
+			<div>
+				<a href="/home" class="btn btn-primary" data-toggle="tooltip" title="Regresa al Home">Volver</a>
+			</div>
+
+		</div>
+
+
+	</div>
+
+
+</body>
+<script src="lib/jquery-1.11.3.min.js"></script>
+<script src="lib/bootstrap.min.js"></script>
+<script src="js/busqueda.js"></script>
+<script src="js/main.js"></script>
+</html>

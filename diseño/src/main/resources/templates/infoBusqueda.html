@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Detalle de los Pois</title>
+<link rel="stylesheet" href="/lib/bootstrap.min.css" />
+</head>
+<body>
+	<div class="row container-fluid">
+		<div class="col-md-5">
+
+			<div>
+				<div class="row container-fluid">
+					<div class="col-md-2">
+						<a id="home" type="button" class="btn btn-default" href="/home">Home
+						</a>
+					</div>
+
+					<div class="col-md-2">
+						<a id="Busqueda" type="button" class="btn btn-default"
+							href="/busqueda">Busqueda </a>
+					</div>
+					<div class="col-md-2">
+						<a id="Historial" type="button" class="btn btn-default"
+							href="/historialBusqueda">Historial</a>
+					</div>
+					<div class="col-md-2">
+						<a id="AccionesBusqueda" type="button" class="btn btn-default"
+							href="/accionesBusqueda">AccionesBusqueda</a>
+					</div>
+					<div class="col-md-2"></div>
+				</div>
+			</div>
+
+		</div>
+		<div class="col-md-2"></div>
+		<div class="col-md-2">
+			<a href="/logout" type="submit" id="buttonlog"
+				class="btn btn-default">Desloguearme</a>
+		</div>
+
+		<div class="col-md-1">UsuarioLogueado:</div>
+		<div class="col-md-2">
+			<div class="form-content">
+				<p th:text="${userName}"></p>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="well">
+		<h1>Detalle de los puntos de interes</h1>
+	</div>
+	<div class="row">
+		<div class="col-sm-8">
+
+			<!-- 			<div class="container" style="margin-top: 2%"> -->
+			<div class="panel panel-danger" style="border: 3px #a94442 solid">
+				<div class="panel-heading">
+					<h4>Pois</h4>
+				</div>
+				<table class="table table-bordered" id="tablaDePdis">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Direcci&oacute;n</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="pdi: ${infoBusqueda}">
+							<td th:text="${pdi.nombre}">-</td>
+							<td th:text="${pdi.getDireccion()}">-</td>
+						</tr>
+
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+
+	<div>
+		<a href="/historialBusqueda" class="btn btn-default" data-toggle="tooltip" title="Regresa a Historial">Volver</a>
+	</div>
+</body>
+
+<script src="/lib/jquery-1.11.3.min.js"></script>
+<script src="/lib/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+</html>

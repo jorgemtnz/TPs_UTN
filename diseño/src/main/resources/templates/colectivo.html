@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Informaci&oacute;n - Colectivo</title>
+<link rel="stylesheet" href="/lib/bootstrap.min.css" />
+<link rel="stylesheet" href="css/estiloGeneral.css" />
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
+
+</head>
+<body id="body" background="#80ffff">
+
+		<div class="row container-fluid">
+		<div class="col-md-5">
+
+			<div>
+				<div class="row container-fluid">
+					<div class="col-md-2">
+						<a id="home" type="button" class="btn btn-default" href="/home">Home
+						</a>
+					</div>
+
+					<div class="col-md-2">
+						<a id="Busqueda" type="button" class="btn btn-default"
+							href="/busqueda">Busqueda </a>
+					</div>
+					<div class="col-md-2">
+						<a id="Historial" type="button" class="btn btn-default"
+							href="/historialBusqueda">Historial</a>
+					</div>
+					<div class="col-md-2">
+						<a id="AccionesBusqueda" type="button" class="btn btn-default"
+							href="/accionesBusqueda">AccionesBusqueda</a>
+					</div>
+					<div class="col-md-2"></div>
+				</div>
+			</div>
+
+		</div>
+		<div class="col-md-2"></div>
+		<div class="col-md-2">
+			<a href="/logout" type="submit" id="buttonlog"
+				class="btn btn-default">Desloguearme</a>
+		</div>
+
+		<div class="col-md-1">UsuarioLogueado:</div>
+		<div class="col-md-2">
+			<div class="form-content">
+				<p th:text="${userName}"></p>
+			</div>
+		</div>
+	</div>
+
+	<div id="divPdi">
+		<div class="well">
+			<h1>Informaci&oacute;n - Colectivo</h1>
+		</div>
+		<div class="container">
+			<input id="pdiId" name="id" type="hidden" th:value="${pdi.id}" /> <input
+				id="pdiIdClassName" name="className" type="hidden"
+				th:value="${pdi.getClass()}" />
+
+			<div id="divPdiColectivo" class="row">
+				<div class="form-group">
+					<i class="fa fa-bus fa-4x" aria-hidden="true"></i>
+				</div>
+				<div class="form-group">
+					<label for="colectivo_nombre">Nombre</label> <input type="text"
+						class="form-control" name="colectivo_nombre" id="colectivo_nombre"
+						th:value="${pdi.nombre}" placeholder="ColectivoNombre" />
+				</div>
+				<div class="form-group">
+					<label for="colectivo_numero">N&uacute;mero</label> <input
+						type="text" class="form-control" name="colectivo_numero"
+						id="colectivo_numero" th:value="${pdi.numero}"
+						placeholder="ColectivoNumero" />
+				</div>
+			</div>
+			<div>
+				<p></p>
+			</div>
+			<div>
+				<a href="/busqueda" class="btn btn-primary" data-toggle="tooltip" title="Regresa a Busqueda">Volver</a>
+			</div>
+		</div>
+
+
+	</div>
+</body>
+<script src="/lib/jquery-1.11.3.min.js"></script>
+<script src="/lib/bootstrap.min.js"></script>
+<script src="/js/pdi.js"></script>
+<script src="/js/main.js"></script>
+</html>

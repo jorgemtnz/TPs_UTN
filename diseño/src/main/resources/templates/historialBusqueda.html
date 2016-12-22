@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>historialBusqueda</title>
+<link rel="stylesheet" href="lib/bootstrap.min.css" />
+<link rel="stylesheet" href="css/estiloGeneral.css" />
+</head>
+<body>
+
+	<div class="row container-fluid">
+		<div class="col-md-5">
+
+			<div>
+				<div class="row container-fluid">
+					<div class="col-md-2">
+						<a id="home" type="button" class="btn btn-default" href="/home">Home
+						</a>
+					</div>
+
+					<div class="col-md-2">
+						<a id="Busqueda" type="button" class="btn btn-default"
+							href="/busqueda">Busqueda </a>
+					</div>
+					<div class="col-md-2">
+						<a id="Historial" type="button" class="btn btn-default"
+							href="/historialBusqueda">Historial</a>
+					</div>
+					<div class="col-md-2">
+						<a id="AccionesBusqueda" type="button" class="btn btn-default"
+							href="/accionesBusqueda">AccionesBusqueda</a>
+					</div>
+					<div class="col-md-2"></div>
+				</div>
+			</div>
+
+		</div>
+		<div class="col-md-2"></div>
+		<div class="col-md-2">
+			<a href="/logout" type="submit" id="buttonlog"
+				class="btn btn-default">Desloguearme</a>
+		</div>
+
+		<div class="col-md-1">UsuarioLogueado:</div>
+		<div class="col-md-2">
+			<div class="form-content">
+				<p th:text="${userName}"></p>
+			</div>
+		</div>
+	</div>
+
+	<div class="well">
+		<h1>Historial de b&uacute;squedas realizadas</h1>
+	</div>
+	<div class="container" style="margin-top: 2%">
+		<h4>Criterio de b&uacute;squeda</h4>
+
+
+		<form>
+			<div class="form-content">
+				<label for="user">Usuario</label> <input type="text"
+					class="form-control" id="user" /> <label for="user">Fecha
+					inicio</label> <input type="date" class="form-control" id="fechaInicio" min="2016-01-01" step ="1" />
+				<label for="user">Fecha fin</label> <input type="date" min="2016-01-01" step ="1"
+					class="form-control" id="fechaFin" />
+				<div>
+					<p></p>
+				</div>
+
+			</div>
+		</form>
+		<button class="btn" id="btnBuscar">Buscar</button>
+		<div class="row">
+			<div class="col-sm-8">
+
+				<!-- 			<div class="container" style="margin-top: 2%"> -->
+				<div class="panel panel-danger" style="border: 3px #a94442 solid">
+					<div class="panel-heading">
+						<h4>Resultado</h4>
+					</div>
+					<table class="table table-bordered" id="tablaDeHistorial">
+						<thead>
+							<tr>
+								<th>Fecha</th>
+								<th>Usuario</th>
+								<th>Par&aacute;metros</th>
+								<th>Pois</th>
+								<th>Tiempo de busqueda(ms)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="historial: ${historialBusquedas}">
+								<td th:text="${historial.fecha}">-</td>
+								<td th:text="${historial.nombreUsuarioTerminal}">-</td>
+								<td th:text="${historial.textoBusqueda}">-</td>
+								<td th:text="${historial.cantResultados}">-</td>
+								<td th:text="${historial.tiempoBusqueda}">-</td>
+								<td><a style="color: #0080ff; font-weight: bold"
+									th:href="${'/infoBusqueda/' + historial.getId()}"
+									target="_self">Detalle</a></td>
+
+							</tr>
+
+						</tbody>
+					</table>
+
+				</div>
+
+			</div>
+		</div>
+
+		<div>
+			<p></p>
+		</div>
+		<div>
+			<a href="/home" class="btn btn-primary" data-toggle="tooltip" title="Regresa al Home">Volver</a>
+		</div>
+	</div>
+</body>
+<script src="lib/jquery-1.11.3.min.js"></script>
+<script src="lib/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/historialBusqueda.js"></script>
+</html>

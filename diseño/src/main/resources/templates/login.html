@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>login</title>
+<link rel="stylesheet" href="lib/bootstrap.min.css" />
+<link rel="stylesheet" href="css/estiloGeneral.css" />
+</head>
+<body class="bg-primary">
+		<div class="container" style="margin-top: 10%">
+	
+		<div class="row">
+			<div class="col-sm-3">
+								<p th:text="${error}"></p>
+				
+			</div>
+			<div class="col-sm-6">
+
+
+
+				<form class="myform" action="login" method="POST">
+					<header>Login</header>
+					<div class="form-content">
+						<label for="user">Usuario</label> <input type="text"
+							class="form-control" id="user" name="user" /> <label
+							for="password">Contrase&ntilde;a</label> <input 
+						 type="password" class="form-control" id="password"
+							name="password" /> <br />
+						<!-- 							<button class="btn" id ="botonAceptar">Entrar</button> -->
+						<button type="submit" id="buttonlog" class="btn btn-primary">Entrar</button>
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-3"></div>
+		</div>
+	</div>
+</body>
+<script src="lib/jquery-1.11.3.min.js"></script>
+<script src="lib/bootstrap.min.js"></script>
+
+</html>

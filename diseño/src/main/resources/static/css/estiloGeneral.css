@@ -1,0 +1,76 @@
+.myform {
+	background: white;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+	font-family: "Trebuchet MS", serif;
+	color: #808040;
+	border-radius: 10px;
+}
+
+.myform header {
+	background: #0080ff;
+	padding: 30px 20px;
+	color: white;
+	font-size: 1.2em;
+	font-weight: 600;
+	border-radius: 10px 10px 0 0;
+}
+
+/* #home { */
+/* 	width: 100%; */
+/* 	margin:0; */
+/* 	border:0; */
+/* 	display: inline-block; */
+/* 	user-select: none; */
+/* 	font-size: 14px; */
+/* 	margin-bottom: 0; */
+/* 	font-weight: normal; */
+/* 	cursor: pointer; */
+/* 	border-radius: 4px; */
+/* 	user-select: none; */
+/* 	display: inline-block; */
+/* } */
+
+/* #Busqueda { */
+/* 	width: 100%; */
+/* 	margin:0; */
+/* 	border:0; */
+/* 	display: inline-block; */
+/* 	user-select: none; */
+/* 	font-size: 14px; */
+/* 	margin-bottom: 0; */
+/* 	font-weight: normal; */
+/* 	cursor: pointer; */
+/* 	border-radius: 4px; */
+/* 	user-select: none; */
+/* 	display: inline-block; */
+/* } */
+
+/* #Historial { */
+/* 	width: 100%; */
+/* 	margin:0; */
+/* 	border:0; */
+/* 	display: inline-block; */
+/* 	user-select: none; */
+/* 	font-size: 14px; */
+/* 	margin-bottom: 0; */
+/* 	font-weight: normal; */
+/* 	cursor: pointer; */
+/* 	border-radius: 4px; */
+/* 	user-select: none; */
+/* 	display: inline-block; */
+/* } */
+
+/* #AccionesBusqueda { */
+/* 	width: 100%; */
+/* 	margin:0; */
+/* 	border:0; */
+/* 	display: inline-block; */
+/* 	user-select: none; */
+/* 	font-size: 14px; */
+/* 	margin-bottom: 0; */
+/* 	font-weight: normal; */
+/* 	cursor: pointer; */
+/* 	border-radius: 4px; */
+/* 	user-select: none; */
+/* 	display: inline-block; */
+/* } */

@@ -1,0 +1,6 @@
+Abasto Shopping;Ropa Cine Juegos
+Avellaneda Shopping;Comida Entretenimiento Diversion
+Devoto Shopping;Bowling Libreria Confiteria
+La Continental;Pizzas Empanadas Cafe
+Cuspide;Libros Novelas Biografias
+La Caja de Ahorro;Seguros Automoviles Motos Aseguradora 
